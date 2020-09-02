@@ -86,6 +86,9 @@ class _QuizAppState extends State<QuizApp> {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
+                    RaisedButton(onPressed: () => _previousQuestion(),
+                      color: Colors.blueGrey.shade900,
+                      child: Icon(Icons.arrow_back, color: Colors.white,),),
                     RaisedButton(onPressed: () => _checkAnswer(true, context),
                       color: Colors.blueGrey.shade900,
                       child: Text("TRUE", style: TextStyle(color: Colors.white)),),
@@ -114,6 +117,7 @@ class _QuizAppState extends State<QuizApp> {
         duration: Duration(milliseconds: 500),
         backgroundColor: Colors.green,
       );
+      _nextQuestion();
     } else {
       snackBar = SnackBar(
         content: Text("Wrong answer..."),
@@ -127,6 +131,12 @@ class _QuizAppState extends State<QuizApp> {
   _nextQuestion() {
     setState(() {
       _currentQuestionIndex = (_currentQuestionIndex + 1) % questionBank.length;
+    });
+  }
+
+  _previousQuestion() {
+    setState(() {
+      _currentQuestionIndex = (_currentQuestionIndex - 1) % questionBank.length;
     });
   }
 }
