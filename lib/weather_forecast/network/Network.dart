@@ -12,8 +12,13 @@ class Network {
     print("URL: ${Uri.encodeFull(finalUrl)}");
 
     if(response.statusCode == 200) {
-      print("weather data: ${response.body}");
-      return WeatherForecastModel.fromJson(json.decode(response.body));
+      try {
+        var object = WeatherForecastModel.fromJson(json.decode(response.body));
+        return object;
+      } catch(e) {
+        print("Error! ${e.toString()}");
+        throw e;
+      }
     } else {
       throw Exception("Error getting weather forecast");
     }

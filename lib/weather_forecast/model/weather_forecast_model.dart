@@ -78,8 +78,8 @@ class Daily {
         : null;
     pressure = json['pressure'];
     humidity = json['humidity'];
-    dewPoint = json['dew_point'].toDouble();
-    windSpeed = json['wind_speed'].toDouble();
+    dewPoint = json['dew_point'] == null ? 0 : json['dew_point'].toDouble();
+    windSpeed= json['wind_speed'] == null ? 0 : json['wind_speed'].toDouble();
     windDeg = json['wind_deg'];
     if (json['weather'] != null) {
       weather = new List<Weather>();
@@ -88,9 +88,9 @@ class Daily {
       });
     }
     clouds = json['clouds'];
-    pop = json['pop'].toDouble();
-    uvi = json['uvi'].toDouble();
-    rain = json['rain'];
+    pop = json['pop'] == null ? 0 : json['pop'].toDouble();
+    uvi = json['uvi'] == null ? 0 : json['uvi'].toDouble();
+    rain = json['rain'] == null ? 0 : json['rain'].toDouble();
   }
 
   Map<String, dynamic> toJson() {
@@ -131,12 +131,12 @@ class Temp {
   Temp({this.day, this.min, this.max, this.night, this.eve, this.morn});
 
   Temp.fromJson(Map<String, dynamic> json) {
-    day = json['day'];
-    min = json['min'];
-    max = json['max'];
-    night = json['night'];
-    eve = json['eve'];
-    morn = json['morn'];
+    day = json['day'] == null ? 0 : json['day'].toDouble();
+    min = json['min'] == null ? 0 : json['min'].toDouble();
+    max = json['max'] == null ? 0 : json['max'].toDouble();
+    night = json['night'] == null ? 0 : json['night'].toDouble();;
+    eve = json['eve'] == null ? 0 : json['eve'].toDouble();
+    morn = json['morn'] == null ? 0 : json['morn'].toDouble();
   }
 
   Map<String, dynamic> toJson() {
@@ -160,10 +160,10 @@ class FeelsLike {
   FeelsLike({this.day, this.night, this.eve, this.morn});
 
   FeelsLike.fromJson(Map<String, dynamic> json) {
-    day = json['day'];
-    night = json['night'];
-    eve = json['eve'];
-    morn = json['morn'];
+    day = json['day'] == null ? 0 : json['day'].toDouble();
+    night = json['night'] == null ? 0 : json['night'].toDouble();;
+    eve = json['eve'] == null ? 0 : json['eve'].toDouble();
+    morn = json['morn'] == null ? 0 : json['morn'].toDouble();
   }
 
   Map<String, dynamic> toJson() {

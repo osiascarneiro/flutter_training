@@ -34,8 +34,8 @@ class _WeatherForecastState extends State<WeatherForecast> {
                 if(snapshot.hasData) {
                   return Column(
                     children: [
-                      midView(snapshot),
-                      bottomView(snapshot, context)
+                      MidView(snapshot: snapshot),
+                      BottomView(snapshot: snapshot)
                     ],
                   );
                 } else {
