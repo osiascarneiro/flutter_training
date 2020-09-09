@@ -15,7 +15,6 @@ class _JsonParsingMapState extends State<JsonParsingMap> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     String url = "https://jsonplaceholder.typicode.com/posts";
     Network net = Network(url);
