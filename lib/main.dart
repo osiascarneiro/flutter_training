@@ -1,4 +1,4 @@
-import 'package:first_flutter_app/flutter_maps/quakes/quakes_app.dart';
+import 'package:first_flutter_app/board_firestore/board_add.dart';
 import 'package:flutter/material.dart';
 
 final ThemeData _appTheme = _buildAppTheme();
@@ -38,7 +38,7 @@ TextTheme _appTextTheme(TextTheme base) {
 }
 
 void main() => runApp(new MaterialApp(
-  home: QuakesApp(),
+  home: BoardApp(),
   // theme: _appTheme,
 ));
 
