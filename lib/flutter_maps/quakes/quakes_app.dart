@@ -16,6 +16,7 @@ class _QuakesAppState extends State<QuakesApp> {
   Future<Quake> quakesData;
   Completer<GoogleMapController> _controller = Completer();
   List<Marker> _markerList = [];
+  double _zoomVal = 5.0;
 
   @override
   void initState() {
@@ -28,14 +29,48 @@ class _QuakesAppState extends State<QuakesApp> {
     return Scaffold(
       body: Stack(
         children: [
-          _buildGoogleMap(context)
+          _buildGoogleMap(context),
+          _zoomMinus(),
+          _zoomPlus()
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(onPressed: findQuakes, label: Text("Find Quakes")),
     );
   }
 
-  _buildGoogleMap(BuildContext context) {
+  Widget _zoomPlus() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 38),
+      child: Align(
+        alignment: Alignment.topRight,
+        child: IconButton(
+          onPressed: () {
+            _zoomVal++;
+            _plus(_zoomVal);
+          },
+          icon: Icon(FontAwesomeIcons.searchPlus),
+        ),
+      ),
+    );
+  }
+
+  Widget _zoomMinus() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 38.0),
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: IconButton(
+          onPressed: () {
+            _zoomVal--;
+            _minus(_zoomVal);
+          },
+          icon: Icon(FontAwesomeIcons.searchMinus),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildGoogleMap(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
@@ -44,7 +79,7 @@ class _QuakesAppState extends State<QuakesApp> {
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
-        initialCameraPosition: CameraPosition(target: LatLng(36.1083333, -117.8608333), zoom: 3),
+        initialCameraPosition: CameraPosition(target: LatLng(36.1083333, -117.8608333), zoom: _zoomVal),
         markers: Set<Marker>.of(_markerList),
       ),
     );
@@ -71,5 +106,21 @@ class _QuakesAppState extends State<QuakesApp> {
         })
       });
     });
+  }
+
+  Future<void> _minus(double zoomVal) async {
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+      target: LatLng(40.712776, -74.005974),
+      zoom: zoomVal
+    )));
+  }
+
+  Future<void> _plus(double zoomVal) async {
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+        target: LatLng(40.712776, -74.005974),
+        zoom: zoomVal
+    )));
   }
 }
